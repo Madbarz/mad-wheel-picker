@@ -72,7 +72,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "@react-native-picker/picker": "2.4.6"
   },
   "jest": {
     "preset": "react-native",
@@ -90,9 +91,6 @@
     "git": {
       "commitMessage": "chore: release ${version}",
       "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
     },
     "github": {
       "release": true
