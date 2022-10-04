@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextPaint;
@@ -158,6 +159,9 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
       Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.LINEAR_TEXT_FLAG);
     mTextPaint.setTextAlign(Paint.Align.CENTER);
     mTextPaint.setTextSize(textSize);
+    // BOLD
+    // this is where we set the items' text to be bold
+    mTextPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
     mTextBound = new Rect();
@@ -165,14 +169,8 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
 
     mHandler = new Handler();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-      mScroller = new OverScrollerCompat(getContext(), new DecelerateInterpolator());
-    } else {
-      mScroller = new ScrollerCompat(getContext(), new DecelerateInterpolator());
-    }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-      mScroller.setFriction(ViewConfiguration.getScrollFriction() / 25);
-    }
+    mScroller = new OverScrollerCompat(getContext(), new DecelerateInterpolator());
+    mScroller.setFriction(ViewConfiguration.getScrollFriction() / 25);
   }
 
   protected void assignment() {

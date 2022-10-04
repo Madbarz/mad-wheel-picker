@@ -8,10 +8,10 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
-
 import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.nativewheelpicker.AbstractWheelPicker;
 
@@ -24,18 +24,19 @@ public class MadWheelPickerModule extends SimpleViewManager<ReactWheelCurvedPick
     private static final int DEFAULT_TEXT_SIZE = 25 * 2;
     private static final int DEFAULT_ITEM_SPACE = 14 * 2;
 
+
     @Override
     protected ReactWheelCurvedPicker createViewInstance(ThemedReactContext reactContext){
       ReactWheelCurvedPicker picker = new ReactWheelCurvedPicker(reactContext);
       picker.setTextColor(Color.LTGRAY);
-      picker.setCurrentTextColor(Color.WHITE);
+      picker.setCurrentTextColor(Color.BLACK);
       picker.setTextSize(DEFAULT_TEXT_SIZE);
       picker.setItemSpace(DEFAULT_ITEM_SPACE);
 
       return picker;
     }
 
-    @Override
+  @Override
     public Map getExportedCustomDirectEventTypeConstants(){
       return MapBuilder.of(ItemSelectedEvent.EVENT_NAME, MapBuilder.of("registrationName", "onValueChange"));
     }
@@ -65,11 +66,19 @@ public class MadWheelPickerModule extends SimpleViewManager<ReactWheelCurvedPick
       }
     }
 
-    @ReactProp(name="textColor", customType = "Color")
-    public void setTextColor(ReactWheelCurvedPicker picker, Integer color) {
+    @ReactProp(name="textColor")
+    public void setTextColor(ReactWheelCurvedPicker picker, String color) {
       if (picker != null) {
-        picker.setCurrentTextColor(color);
-        picker.setTextColor(color);
+        int newColor = Color.parseColor(color);
+        picker.setTextColor(newColor);
+      }
+    }
+
+    @ReactProp(name="selectedTextColor")
+    public void setSelectedTextColor(ReactWheelCurvedPicker picker, String color){
+      if(picker != null){
+        int newColor = Color.parseColor(color);
+        picker.setCurrentTextColor(newColor);
       }
     }
 
