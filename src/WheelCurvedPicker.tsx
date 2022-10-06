@@ -1,11 +1,6 @@
 import React, { Children, ReactElement } from 'react';
-import type {
-  NativeSyntheticEvent,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
-import { AndroidWheelPicker } from 'src/NativePicker/AndroidWheelPicker';
+import type { NativeSyntheticEvent, StyleProp, TextStyle } from 'react-native';
+import { AndroidWheelPicker } from './NativePicker/AndroidWheelPicker';
 
 export type WheelCurvedPickerItemProps = { label: string; value: number };
 interface IWheelCurvedPicker {
@@ -13,14 +8,14 @@ interface IWheelCurvedPicker {
   selectedValue?: number | string | undefined;
   itemSpace?: number;
   selectedTextColor?: string;
+  textColor?: string;
+  textSize?: number;
   onValueChange: (value: number) => void;
   style?: StyleProp<TextStyle>;
 }
 type WheelCurvedPickerState = {
   selectedIndex: number;
   data: WheelCurvedPickerItemProps[];
-  color: string;
-  size: number;
 };
 
 class PickerItem extends React.Component<WheelCurvedPickerItemProps> {
@@ -29,11 +24,7 @@ class PickerItem extends React.Component<WheelCurvedPickerItemProps> {
   }
 }
 
-const defaultContainerStyle: ViewStyle = {
-  height: 280,
-};
-
-export default class WheelCurvedPicker extends React.Component<
+export class WheelCurvedPicker extends React.Component<
   IWheelCurvedPicker,
   WheelCurvedPickerState
 > {
@@ -42,8 +33,6 @@ export default class WheelCurvedPicker extends React.Component<
     this.state = {
       selectedIndex: 0,
       data: [],
-      color: 'black',
-      size: 26,
     };
   }
   static Item: typeof PickerItem = PickerItem;
@@ -65,8 +54,6 @@ export default class WheelCurvedPicker extends React.Component<
     return {
       selectedIndex,
       data,
-      color: 'black',
-      size: 26,
     };
   }
 
@@ -79,12 +66,12 @@ export default class WheelCurvedPicker extends React.Component<
   render() {
     return (
       <AndroidWheelPicker
-        style={defaultContainerStyle}
+        style={this.props.style}
         onValueChange={this.changeValue}
         data={this.state.data}
-        textSize={this.state.size}
+        textSize={this.props.textSize}
         selectedTextColor={this.props.selectedTextColor}
-        textColor={this.state.color}
+        textColor={this.props.textColor}
         itemSpace={this.props.itemSpace}
         selectedIndex={this.state.selectedIndex}
       />
