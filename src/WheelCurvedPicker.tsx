@@ -1,33 +1,33 @@
-import React, { Children, ReactElement } from 'react';
+import React, { Children, ReactElement, ReactNode } from 'react';
 import type { NativeSyntheticEvent, StyleProp, TextStyle } from 'react-native';
 import { AndroidWheelPicker } from './NativePicker/AndroidWheelPicker';
 
 export type WheelCurvedPickerItemProps = { label: string; value: number };
 interface IWheelCurvedPicker {
-  children: ReactElement<WheelCurvedPickerItemProps>;
+  children: ReactNode;
   selectedValue?: string | number;
   /**
    * Defines the space between each picker item.
-   * Platform Android
    * @defaultValue `18`
+   * @Platform Android
    */
   itemSpace?: number;
   /**
    * Defines the color of the central item.
    * @defaultValue `#000000`
-   * Platform Android
+   * @Platform Android
    */
   selectedTextColor?: string;
   /**
    * Defines the color of the background items.
    * @defaultValue `#AAAAAA`
-   * Platform Android
+   * @Platform Android
    */
   textColor?: string;
   /**
    * Defines the font size for all items.
    * @defaultValue `50`
-   * Platform Android
+   * @Platform Android
    */
   textSize?: number;
   onValueChange: (value: number) => void;
@@ -60,14 +60,17 @@ export class WheelCurvedPicker extends React.Component<
   ): WheelCurvedPickerState {
     let selectedIndex = 0;
     const data: WheelCurvedPickerState['data'] = [];
-    Children.forEach(props.children, (child, index) => {
-      const childIsAlsoTheSelectedItem =
-        child.props.value === props.selectedValue;
-      if (childIsAlsoTheSelectedItem) {
-        selectedIndex = index;
+    Children.forEach(
+      props.children as ReactElement<WheelCurvedPickerItemProps>,
+      (child, index) => {
+        const childIsAlsoTheSelectedItem =
+          child.props.value === props.selectedValue;
+        if (childIsAlsoTheSelectedItem) {
+          selectedIndex = index;
+        }
+        data.push({ label: child.props.label, value: child.props.value });
       }
-      data.push({ label: child.props.label, value: child.props.value });
-    });
+    );
 
     return {
       selectedIndex,
