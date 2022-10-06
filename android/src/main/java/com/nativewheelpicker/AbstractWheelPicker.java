@@ -159,7 +159,7 @@ public abstract class AbstractWheelPicker extends View implements IWheelPicker {
     mTextPaint.setTextSize(textSize);
     // BOLD
     // this is where we set the items' text to be bold
-    mTextPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+    //mTextPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
 
     mTextBound = new Rect();
