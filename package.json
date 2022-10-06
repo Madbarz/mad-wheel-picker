@@ -1,6 +1,6 @@
 {
   "name": "mad-wheel-picker",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Native android wheel picker that resembles iOS wheel picker",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
