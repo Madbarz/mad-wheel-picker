@@ -11,7 +11,6 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.nativewheelpicker.AbstractWheelPicker;
 

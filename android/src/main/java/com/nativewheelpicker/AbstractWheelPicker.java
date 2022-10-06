@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -16,7 +15,6 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
-
 
 import com.madwheelpicker.R;
 
