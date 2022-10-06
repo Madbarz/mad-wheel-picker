@@ -1,10 +1,12 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 import { Platform, StyleProp, ViewStyle } from 'react-native';
-import MadWheelPicker from 'src/Picker/WheelPicker';
+import WheelCurvedPicker, {
+  WheelCurvedPickerItemProps,
+} from 'src/WheelCurvedPicker';
 
 interface IMadPicker {
-  children: ReactNode | ReactNode[];
+  children: ReactElement<WheelCurvedPickerItemProps>;
   selectedValue: number;
   onValueChange: (value: number) => void;
   testID?: string;
@@ -26,21 +28,11 @@ export default class MadPicker extends React.Component<IMadPicker> {
     }
     if (Platform.OS === 'android') {
       return (
-        <MadWheelPicker {...this.props} itemSpace={this.props.itemSpace}>
+        <WheelCurvedPicker {...this.props} itemSpace={this.props.itemSpace}>
           {this.props.children}
-        </MadWheelPicker>
+        </WheelCurvedPicker>
       );
     }
     return null;
   }
 }
-
-/* <Picker
-	selectedValue={this.state.selectedValue} // oboje
-	style={wheel} // oboje 
-	onValueChange={this.onValueChange} // oboje 
-	testID={`modalValue-${testID}`}  // oboje
-	itemStyle={wheelLabel}   // IOS prop , samo Ios prikazuje ovo 
-	itemSpace={wheelLabelSpace}  // Android prop, samo android prikazuje ovo
-	labelPosition={labelPosition} // ???
-/> */

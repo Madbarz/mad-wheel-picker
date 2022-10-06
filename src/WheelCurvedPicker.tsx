@@ -1,29 +1,29 @@
-import React, { Children, ReactNode } from 'react';
+import React, { Children, ReactElement } from 'react';
 import type {
   NativeSyntheticEvent,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import { AndroidWheelPicker } from 'src/AndroidWheelPicker';
+import { AndroidWheelPicker } from 'src/NativePicker/AndroidWheelPicker';
 
-export type MadWheelPickerItemProps = { label: string; value: number };
-export interface IMadWheelPicker {
-  children?: ReactNode;
+export type WheelCurvedPickerItemProps = { label: string; value: number };
+interface IWheelCurvedPicker {
+  children: ReactElement<WheelCurvedPickerItemProps>;
   selectedValue?: number | string | undefined;
   itemSpace?: number;
   selectedTextColor?: string;
   onValueChange: (value: number) => void;
   style?: StyleProp<TextStyle>;
 }
-type MadWheelPickerState = {
+type WheelCurvedPickerState = {
   selectedIndex: number;
-  data: MadWheelPickerItemProps[];
+  data: WheelCurvedPickerItemProps[];
   color: string;
   size: number;
 };
 
-class PickerItem extends React.Component<MadWheelPickerItemProps> {
+class PickerItem extends React.Component<WheelCurvedPickerItemProps> {
   render(): React.ReactNode {
     return null;
   }
@@ -34,10 +34,10 @@ const defaultContainerStyle: ViewStyle = {
 };
 
 export default class WheelCurvedPicker extends React.Component<
-  IMadWheelPicker,
-  MadWheelPickerState
+  IWheelCurvedPicker,
+  WheelCurvedPickerState
 > {
-  constructor(props: IMadWheelPicker) {
+  constructor(props: IWheelCurvedPicker) {
     super(props);
     this.state = {
       selectedIndex: 0,
@@ -48,10 +48,12 @@ export default class WheelCurvedPicker extends React.Component<
   }
   static Item: typeof PickerItem = PickerItem;
 
-  static getDerivedStateFromProps(props: IMadWheelPicker): MadWheelPickerState {
+  static getDerivedStateFromProps(
+    props: IWheelCurvedPicker
+  ): WheelCurvedPickerState {
     let selectedIndex = 0;
-    const data: MadWheelPickerState['data'] = [];
-    Children.toArray(props.children).forEach((child, index) => {
+    const data: WheelCurvedPickerState['data'] = [];
+    Children.forEach(props.children, (child, index) => {
       const childIsAlsoTheSelectedItem =
         child.props.value === props.selectedValue;
       if (childIsAlsoTheSelectedItem) {
@@ -63,8 +65,8 @@ export default class WheelCurvedPicker extends React.Component<
     return {
       selectedIndex,
       data,
-      color: (props.itemStyle.color as string) || 'black',
-      size: props.itemStyle.fontSize || 26,
+      color: 'black',
+      size: 26,
     };
   }
 
@@ -77,7 +79,7 @@ export default class WheelCurvedPicker extends React.Component<
   render() {
     return (
       <AndroidWheelPicker
-        style={(this.props.style, defaultContainerStyle)}
+        style={defaultContainerStyle}
         onValueChange={this.changeValue}
         data={this.state.data}
         textSize={this.state.size}

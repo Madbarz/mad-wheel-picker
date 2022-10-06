@@ -1,4 +1,5 @@
 import {
+  HostComponent,
   NativeSyntheticEvent,
   requireNativeComponent,
   StyleProp,
@@ -16,5 +17,5 @@ type NativePickerProps = {
   style: StyleProp<ViewStyle>;
 };
 
-export const AndroidWheelPicker =
+export const AndroidWheelPicker: HostComponent<NativePickerProps> =
   requireNativeComponent<NativePickerProps>('MadWheelPicker');
