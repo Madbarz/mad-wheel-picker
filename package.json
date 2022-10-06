@@ -37,9 +37,6 @@
     "url": "https://github.com/Madbarz/mad-wheel-picker/issues"
   },
   "homepage": "https://github.com/Madbarz/mad-wheel-picker#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
     "@commitlint/config-conventional": "^17.0.2",
