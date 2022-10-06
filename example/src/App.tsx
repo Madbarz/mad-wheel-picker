@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { PickerIOS } from '@react-native-picker/picker';
-import MadWheelPicker from 'mad-wheel-picker';
+import Picker from 'mad-wheel-picker';
 import { Platform, StyleSheet, View } from 'react-native';
 
 type Foo = {
@@ -24,7 +24,7 @@ export default function App() {
       <View style={styles.container}>
         <PickerIOS
           selectedValue={state.selectedItem}
-          onValueChange={(v) => setState((s) => ({ ...s, selectedItem: v }))}
+          onValueChange={(v) => setState({ ...state, selectedItem: v })}
         >
           {state.itemList.map(({ label, value }) => (
             <PickerIOS.Item value={value} label={label} key={value} />
@@ -35,16 +35,21 @@ export default function App() {
   } else if (Platform.OS === 'android') {
     return (
       <View style={styles.container}>
-        <MadWheelPicker
-          data={state.itemList}
+        <Picker
           onValueChange={onValueChange}
-          textSize={26}
-          textColor={'black'}
-          selectedTextColor={'red'}
+          itemStyle={{ fontSize: 30, color: 'red' }}
           selectedValue={state.selectedItem}
           itemSpace={22}
-          style={{ height: 280, width: '100%' }}
-        />
+          style={{
+            height: 300,
+            width: 'auto',
+            backgroundColor: 'grey',
+          }}
+        >
+          {state.itemList.map(({ label, value }) => (
+            <Picker.Item value={value} label={label} key={value} />
+          ))}
+        </Picker>
       </View>
     );
   } else {

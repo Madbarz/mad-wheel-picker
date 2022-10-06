@@ -1,71 +1,46 @@
-import { PickerIOS } from '@react-native-picker/picker';
-import React from 'react';
-import {
-  NativeSyntheticEvent,
-  Platform,
-  requireNativeComponent,
-  ViewStyle,
-} from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import React, { ReactNode } from 'react';
+import { Platform, StyleProp, ViewStyle } from 'react-native';
+import MadWheelPicker from 'src/Picker/WheelPicker';
 
-export type MadWheelPickerItemProps = { label: string; value: number };
-type NativePickerProps = {
-  data: MadWheelPickerItemProps[];
-  selectedIndex: number;
-  onValueChange: (e: NativeSyntheticEvent<{ data: number }>) => void;
-  textColor: string;
-  selectedTextColor: string;
-  textSize: number;
-  itemSpace: number;
-  style: ViewStyle;
-};
-
-type MadWheelPicker = {
-  data: MadWheelPickerItemProps[];
+interface IMadPicker {
+  children: ReactNode | ReactNode[];
   selectedValue: number;
+  onValueChange: (value: number) => void;
+  testID?: string;
+  itemStyle?: StyleProp<ViewStyle>;
   itemSpace: number;
-  textSize: number;
-  textColor: string;
-  selectedTextColor: string;
-  onValueChange: (v: number) => void;
-  style: ViewStyle;
-};
+}
+export default class MadPicker extends React.Component<IMadPicker> {
+  constructor(props: IMadPicker) {
+    super(props);
+  }
 
-const AndroidWheelPicker =
-  requireNativeComponent<NativePickerProps>('MadWheelPicker');
-
-class PickerItem extends React.Component<MadWheelPickerItemProps> {
   render(): React.ReactNode {
+    if (Platform.OS === 'ios') {
+      return (
+        <Picker {...this.props} itemStyle={this.props.itemStyle}>
+          {this.props.children}
+        </Picker>
+      );
+    }
+    if (Platform.OS === 'android') {
+      return (
+        <MadWheelPicker {...this.props} itemSpace={this.props.itemSpace}>
+          {this.props.children}
+        </MadWheelPicker>
+      );
+    }
     return null;
   }
 }
 
-class WheelCurvedPicker extends React.PureComponent<MadWheelPicker> {
-  constructor(props: MadWheelPicker) {
-    super(props);
-  }
-  static Item: typeof PickerItem = PickerItem;
-
-  private onValueChange = (e: NativeSyntheticEvent<{ data: number }>) => {
-    if (this.props.onValueChange) {
-      this.props.onValueChange(e.nativeEvent.data);
-    }
-  };
-
-  render() {
-    return (
-      <AndroidWheelPicker
-        {...this.props}
-        onValueChange={this.onValueChange}
-        data={this.props.data}
-        textSize={this.props.textSize}
-        selectedTextColor={this.props.selectedTextColor}
-        textColor={this.props.textColor}
-        itemSpace={this.props.itemSpace}
-        selectedIndex={this.props.selectedValue}
-      />
-    );
-  }
-}
-
-const MadWheelPicker = Platform.OS === 'ios' ? PickerIOS : WheelCurvedPicker;
-export default MadWheelPicker;
+/* <Picker
+	selectedValue={this.state.selectedValue} // oboje
+	style={wheel} // oboje 
+	onValueChange={this.onValueChange} // oboje 
+	testID={`modalValue-${testID}`}  // oboje
+	itemStyle={wheelLabel}   // IOS prop , samo Ios prikazuje ovo 
+	itemSpace={wheelLabelSpace}  // Android prop, samo android prikazuje ovo
+	labelPosition={labelPosition} // ???
+/> */
