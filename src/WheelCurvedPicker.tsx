@@ -5,10 +5,30 @@ import { AndroidWheelPicker } from './NativePicker/AndroidWheelPicker';
 export type WheelCurvedPickerItemProps = { label: string; value: number };
 interface IWheelCurvedPicker {
   children: ReactElement<WheelCurvedPickerItemProps>;
-  selectedValue?: number | string | undefined;
+  selectedValue?: string | number;
+  /**
+   * Defines the space between each picker item.
+   * Platform Android
+   * @defaultValue `18`
+   */
   itemSpace?: number;
+  /**
+   * Defines the color of the central item.
+   * @defaultValue `#000000`
+   * Platform Android
+   */
   selectedTextColor?: string;
+  /**
+   * Defines the color of the background items.
+   * @defaultValue `#AAAAAA`
+   * Platform Android
+   */
   textColor?: string;
+  /**
+   * Defines the font size for all items.
+   * @defaultValue `50`
+   * Platform Android
+   */
   textSize?: number;
   onValueChange: (value: number) => void;
   style?: StyleProp<TextStyle>;
@@ -18,11 +38,9 @@ type WheelCurvedPickerState = {
   data: WheelCurvedPickerItemProps[];
 };
 
-class PickerItem extends React.Component<WheelCurvedPickerItemProps> {
-  render(): React.ReactNode {
-    return null;
-  }
-}
+const PickerItem = (_props: WheelCurvedPickerItemProps): null => {
+  return null;
+};
 
 export class WheelCurvedPicker extends React.Component<
   IWheelCurvedPicker,
