@@ -1,6 +1,6 @@
 {
   "name": "mad-wheel-picker",
-  "version": "0.2.2",
+  "version": "0.1.0",
   "description": "Native android wheel picker that resembles iOS wheel picker",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -32,7 +32,6 @@
   ],
   "repository": "https://github.com/Madbarz/mad-wheel-picker",
   "author": "madbarz <madbarz@madbarz.com> (https://github.com/Madbarz)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Madbarz/mad-wheel-picker/issues"
   },
