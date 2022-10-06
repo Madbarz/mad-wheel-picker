@@ -60,9 +60,9 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
+    "@react-native-picker/picker": "^2.4.6",
     "react": "*",
-    "react-native": "*",
-    "@react-native-picker/picker": "2.4.6"
+    "react-native": "*"
   },
   "commitlint": {
     "extends": [
@@ -127,5 +127,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@react-native-picker/picker": "^2.4.6"
   }
 }
