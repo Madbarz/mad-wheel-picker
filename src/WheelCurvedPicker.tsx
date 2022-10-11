@@ -1,6 +1,7 @@
-import React, { Children, ReactElement, ReactNode } from 'react';
-import type { NativeSyntheticEvent, StyleProp, TextStyle } from 'react-native';
-import { AndroidWheelPicker } from './NativePicker/AndroidWheelPicker';
+import React, { Children, ReactElement, ReactNode } from "react";
+import type { NativeSyntheticEvent, StyleProp, TextStyle } from "react-native";
+import type { ItemValue } from ".";
+import { AndroidWheelPicker } from "./NativePicker/AndroidWheelPicker";
 
 export type WheelCurvedPickerItemProps = { label: string; value: number };
 interface IWheelCurvedPicker {
@@ -30,7 +31,7 @@ interface IWheelCurvedPicker {
    * @Platform Android
    */
   textSize?: number;
-  onValueChange: (value: number) => void;
+  onValueChange: (value: ItemValue) => void;
   style?: StyleProp<TextStyle>;
 }
 type WheelCurvedPickerState = {
@@ -42,39 +43,30 @@ const PickerItem = (_props: WheelCurvedPickerItemProps): null => {
   return null;
 };
 
-export class WheelCurvedPicker extends React.Component<
-  IWheelCurvedPicker,
-  WheelCurvedPickerState
-> {
+export class WheelCurvedPicker extends React.Component<IWheelCurvedPicker, WheelCurvedPickerState> {
   constructor(props: IWheelCurvedPicker) {
     super(props);
     this.state = {
       selectedIndex: 0,
-      data: [],
+      data: []
     };
   }
   static Item: typeof PickerItem = PickerItem;
 
-  static getDerivedStateFromProps(
-    props: IWheelCurvedPicker
-  ): WheelCurvedPickerState {
+  static getDerivedStateFromProps(props: IWheelCurvedPicker): WheelCurvedPickerState {
     let selectedIndex = 0;
-    const data: WheelCurvedPickerState['data'] = [];
-    Children.forEach(
-      props.children as ReactElement<WheelCurvedPickerItemProps>,
-      (child, index) => {
-        const childIsAlsoTheSelectedItem =
-          child.props.value === props.selectedValue;
-        if (childIsAlsoTheSelectedItem) {
-          selectedIndex = index;
-        }
-        data.push({ label: child.props.label, value: child.props.value });
+    const data: WheelCurvedPickerState["data"] = [];
+    Children.forEach(props.children as ReactElement<WheelCurvedPickerItemProps>, (child, index) => {
+      const childIsAlsoTheSelectedItem = child.props.value === props.selectedValue;
+      if (childIsAlsoTheSelectedItem) {
+        selectedIndex = index;
       }
-    );
+      data.push({ label: child.props.label, value: child.props.value });
+    });
 
     return {
       selectedIndex,
-      data,
+      data
     };
   }
 

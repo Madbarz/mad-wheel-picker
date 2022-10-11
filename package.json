@@ -2,7 +2,7 @@
   "name": "mad-wheel-picker",
   "version": "0.1.3",
   "description": "Native android wheel picker that resembles iOS wheel picker",
-  "main": "lib/commonjs/index",
+  "main": "src/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
@@ -55,6 +55,9 @@
     "release-it": "^15.0.0",
     "typescript": "^4.5.2"
   },
+  "dependencies": {
+    "@react-native-picker/picker": "^2.4.6"
+  },
   "resolutions": {
     "@types/react": "17.0.21"
   },
@@ -82,42 +85,10 @@
       }
     }
   },
-  "eslintConfig": {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "@react-native-community",
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
-        }
-      ]
-    }
-  },
-  "eslintIgnore": [
-    "node_modules/",
-    "lib/"
-  ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
       "module",
       [
         "typescript",
@@ -126,8 +97,5 @@
         }
       ]
     ]
-  },
-  "dependencies": {
-    "@react-native-picker/picker": "^2.4.6"
   }
 }
