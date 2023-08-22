@@ -1,4 +1,5 @@
-import { requireNativeComponent, type NativeSyntheticEvent, type StyleProp, type ViewStyle } from "react-native";
+import { type NativeSyntheticEvent, type StyleProp, type ViewStyle } from "react-native";
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 type NativePickerProps = {
   data: { label: string; value: number }[];
@@ -11,4 +12,4 @@ type NativePickerProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-export const AndroidWheelPicker = requireNativeComponent<NativePickerProps>("MadWheelPicker");
+export const AndroidWheelPicker = codegenNativeComponent<NativePickerProps>("MadWheelPicker");
