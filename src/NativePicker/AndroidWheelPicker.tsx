@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, requireNativeComponent, StyleProp, ViewStyle } from "react-native";
+import { requireNativeComponent, type NativeSyntheticEvent, type StyleProp, type ViewStyle } from "react-native";
 
 type NativePickerProps = {
   data: { label: string; value: number }[];

@@ -1,4 +1,4 @@
-import React, { Children, ReactElement, ReactNode } from "react";
+import React, { Children, type ReactElement, type ReactNode } from "react";
 import type { NativeSyntheticEvent, StyleProp, TextStyle } from "react-native";
 import type { ItemValue } from ".";
 import { AndroidWheelPicker } from "./NativePicker/AndroidWheelPicker";
