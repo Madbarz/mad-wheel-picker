@@ -1,11 +1,11 @@
-import MadPicker, {ItemValue} from 'mad-wheel-picker';
+import MadPicker, {type ItemValue} from 'mad-wheel-picker';
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 export default function App() {
   const values = generatePickerItems();
   const [state, setState] = useState(25);
-  console.log(state);
+  console.log('selectedValue: ', state);
 
   return (
     <View style={styles.container}>
