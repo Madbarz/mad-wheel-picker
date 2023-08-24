@@ -1,9 +1,9 @@
-import React, { Children, ReactElement, ReactNode } from "react";
+import React, { Children, type ReactElement, type ReactNode } from "react";
 import type { NativeSyntheticEvent, StyleProp, TextStyle } from "react-native";
-import type { ItemValue } from ".";
-import { AndroidWheelPicker } from "./NativePicker/AndroidWheelPicker";
+import MadWheelPickerView from "./MadWheelPickerViewNativeComponent";
 
 export type WheelCurvedPickerItemProps = { label: string; value: number };
+export type ItemValue = string | number;
 interface IWheelCurvedPicker {
   children: ReactNode;
   selectedValue?: string | number;
@@ -78,7 +78,7 @@ export class WheelCurvedPicker extends React.Component<IWheelCurvedPicker, Wheel
 
   render() {
     return (
-      <AndroidWheelPicker
+      <MadWheelPickerView
         style={this.props.style}
         onValueChange={this.changeValue}
         data={this.state.data}

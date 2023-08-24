@@ -9,32 +9,34 @@ import android.graphics.Shader;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.uimanager.UIManagerHelper;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.EventDispatcher;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-
 import com.nativewheelpicker.NativeWheelPicker;
 
 import java.util.List;
 
 public class ReactWheelCurvedPicker extends NativeWheelPicker {
-  private final EventDispatcher mEventDispatcher;
   private List<Integer> mValueData;
 
-  public ReactWheelCurvedPicker(ReactContext reactContext){
+  public ReactWheelCurvedPicker(ReactContext reactContext) {
     super(reactContext);
-    mEventDispatcher = reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();
     setOnWheelChangeListener(new OnWheelChangeListener() {
       @Override
       public void onWheelScrolling(float deltaX, float deltaY) {
 
       }
 
+      private void dispatchOnValueChangeEvent(int index) {
+        EventDispatcher mEventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(reactContext, getId());
+        mEventDispatcher.dispatchEvent(new ItemSelectedEvent(getId(), index));
+      }
+
       @Override
       public void onWheelSelected(int index, String data) {
-        if(mValueData != null && index < mValueData.size()) {
-          mEventDispatcher.dispatchEvent(new ItemSelectedEvent(getId(), mValueData.get(index)));
+        if (mValueData != null && index < mValueData.size()) {
+          dispatchOnValueChangeEvent(mValueData.get(index));
         }
       }
 
@@ -53,7 +55,7 @@ public class ReactWheelCurvedPicker extends NativeWheelPicker {
     paint.setColor(Color.WHITE);
     int colorFrom = Color.TRANSPARENT;
     int colorTo = Color.TRANSPARENT;
-    LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top, rectCurItem.right/2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
+    LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top, rectCurItem.right / 2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
     paint.setShader(linearGradientShader);
     canvas.drawLine(rectCurItem.left, rectCurItem.top, rectCurItem.right, rectCurItem.top, paint);
     canvas.drawLine(rectCurItem.left, rectCurItem.bottom, rectCurItem.right, rectCurItem.bottom, paint);
@@ -77,26 +79,27 @@ public class ReactWheelCurvedPicker extends NativeWheelPicker {
 
 class ItemSelectedEvent extends Event<ItemSelectedEvent> {
   public static final String EVENT_NAME = "wheelCurvedPickerPageSelected";
-  private final int mValue;
+  private final int data;
 
-  protected ItemSelectedEvent(int viewTag, int value){
+  protected ItemSelectedEvent(int viewTag, int value) {
     super(viewTag);
-    mValue = value;
+    data = value;
   }
 
   @Override
-  public String getEventName(){
+  public String getEventName() {
     return EVENT_NAME;
   }
 
   @Override
-  public void dispatch(RCTEventEmitter rctEventEmitter){
-    rctEventEmitter.receiveEvent(getViewTag(), getEventName(), serializeEventData());
+  public void dispatch(RCTEventEmitter rctEventEmitter) {
+    super.dispatch(rctEventEmitter);
   }
 
-  private WritableMap serializeEventData(){
+  @Override
+  protected WritableMap getEventData() {
     WritableMap eventData = Arguments.createMap();
-    eventData.putInt("data", mValue);
+    eventData.putInt("data", data);
     return eventData;
   }
 }
